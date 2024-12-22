@@ -1,0 +1,14 @@
+.starsContainer {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+}
+
+.starsContainer span {
+    font-size: 1.4rem;
+}
+
+.starsContainer p {
+    font-size: 0.8rem;
+}
