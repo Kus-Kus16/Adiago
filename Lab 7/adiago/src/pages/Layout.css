@@ -1,0 +1,47 @@
+.layoutContainer {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+.menu {
+    height: 80px;
+    width: 100%;
+    padding: 10px;
+    top: 0;
+    position: fixed;
+    background-color: #003077;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
+
+#menuLogo {
+    padding: 5px 15px;
+    height: 60px;
+}
+
+.menuLinks {
+    list-style: none;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.menuLinks a {
+    margin: 10px 20px;
+    text-decoration: none;
+    color: #f1faff;
+    font-size: 1.1rem;
+}
+
+.menuLinks a:hover {
+    color: #04a7ff;
+    transition: all 0.15s ease;
+} 
+
+.mainContainer {
+    margin-top: 80px;
+}

@@ -1,0 +1,158 @@
+.productsContainer {
+    width: 100%;
+    display: flex;
+}
+
+.filteringContainer {
+    width: 30%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    border: 2px solid black;
+    border-radius: 8px;
+    margin: 30px;
+    padding: 20px;
+    gap: 10px;
+}
+
+.filteringContainer span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.searchInput {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.searchInput input {
+    width: 90%;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 8px;
+    font-size: 1rem;
+    padding: 0px 10px;
+    outline: none; 
+}
+
+.searchInput button {
+    height: 45px;
+    width: 45px;
+    padding: 5px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 8px;
+    outline: none;
+
+    background-image: url('/search.svg'); /* Ścieżka do obrazka */
+    background-repeat: no-repeat;
+    background-position: right 5px center; 
+    background-size: 30px;
+}
+
+.searchInput button img {
+    width: 30px;
+    padding: 3px;
+}
+
+.selectInput {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.selectInput select {
+    width: 100%;
+    max-width: 250px;
+    height: 30px;
+    color: #213547;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 4px;
+    outline: none;
+    padding: 0px 5px;
+
+    appearance: none;
+    background-image: url('/chevron-down.svg'); /* Ścieżka do obrazka */
+    background-repeat: no-repeat;
+    background-position: right 6px center; 
+    background-size: 20px;
+}
+
+.categoryInput, .starsInput, .priceInput {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.categoryDiv, .starDiv, .priceDiv {
+    width: 90%;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.categoryInput input, .starsInput input {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid black;
+    border-radius: 2px;
+    padding: 2px;
+    outline: none;
+}
+
+.starsInput label {
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 125%;
+}
+
+.categoryInput input:checked, .starsInput input:checked {
+    background-image: url("/checkmark.svg");
+    background-size: 15px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.priceInput input {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0;
+    outline: none;
+}
+
+.priceInput input:checked {
+    background-image: url("/dot.svg");
+    background-size: 12px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.filteringContainer button, input, select {
+    transition: border-color 0.25s;
+}
+  
+.filteringContainer button:hover, button:focus, input:hover, input:focus, select:hover, select:focus {
+    border-color: #04a7ff;
+}
+
+.listContainer {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    gap: 30px;
+    margin: 30px;
+}
