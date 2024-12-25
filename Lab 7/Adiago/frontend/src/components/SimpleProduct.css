@@ -15,14 +15,14 @@
     border-color: #04a7ff;
 }
 
-.productImage {
+.simpleProductContainer .productImage {
     width: 40%; 
     object-fit: contain;
     max-height: 200px;
     padding: 15px;
 }
 
-.textsContainer {
+.simpleProductContainer .textsContainer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -34,21 +34,21 @@
     padding: 15px;
 }
 
-.title {
+.simpleProductContainer .title {
     font-size: 1.8rem;
     line-height: 100%;
     font-weight: 400;
 }
 
-.price {
+.simpleProductContainer .price {
     font-size: 2.4rem;
     font-weight: 540;
 }
 
-.starsContainer span {
+.simpleProductContainer .starsContainer span {
     font-size: 1.3rem;
 }
 
-.starsContainer p {
+.simpleProductContainer .starsContainer p {
     font-size: 0.8rem;
 }

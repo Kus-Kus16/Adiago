@@ -1,0 +1,23 @@
+.productContainer {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    gap: 30px;
+    margin: 30px;
+}
+
+.reviewsContainer {
+    display: flex;
+    align-content: center;
+    justify-content: end;
+    flex-wrap: wrap;
+
+    width: 100%;
+    min-height: 200px;
+    border: 2px solid black;
+    border-radius: 8px;
+    transition: border-color 0.15s;
+}
