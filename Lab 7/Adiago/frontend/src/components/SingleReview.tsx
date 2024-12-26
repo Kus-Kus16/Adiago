@@ -1,17 +1,27 @@
+import './SingleReview.css'
+
 interface Review {
     id: number
-    username: string
+    User: User
     positive: boolean
-    body: string
+    content: string
 }
 
+interface User{
+    username: string
+    email: string
+}
 
-export function SingleReview({review}: {review: Review}) {
+export function SingleReview({review, onClick}: {review: Review, onClick: () => void}) {
+    
     return (
         <div className="reviewContainer">
-            <h3>{review.username}</h3>
-            <span>{review.positive ? "🖒" : "🖓"}</span>
-            <p>{review.body}</p>
+            <div className='reviewTitleContainer'>
+                <h3>{review.User.username || review.User.email}</h3>
+                <span style={{color: review.positive ? 'green' : 'red'}}>{review.positive ? "🖒" : "🖓"}</span>
+            </div>
+            <button onClick={onClick}></button>
+            <p>{review.content}</p>
         </div>
     );
 }

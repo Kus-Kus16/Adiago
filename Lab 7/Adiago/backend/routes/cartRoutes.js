@@ -5,11 +5,11 @@ const { verifyToken } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 router.post('/add', verifyToken, async (req, res) => {
-    const {productId, quantity} = req.body;
+    const {productId, productName, productPrice, quantity} = req.body;
     const userId = req.user.id;
 
-    if (!productId || !quantity || isNaN(quantity) || quantity <= 0) {
-        return res.status(400).json({ message: 'Invalid productId or quantity' });
+    if (!productId || !quantity || isNaN(quantity) || quantity <= 0 || !productName || !productPrice) {
+        return res.status(400).json({ message: 'Values missing' });
     }
 
     try {
@@ -25,7 +25,7 @@ router.post('/add', verifyToken, async (req, res) => {
             item.quantity += quantity;
             await item.save();
         } else {
-            await OrderDetail.create({ orderId: cart.id, productId, quantity })
+            await OrderDetail.create({ orderId: cart.id, productId, productName, productPrice, quantity })
         }
 
         res.status(200).json({ message: 'Product added to cart' });

@@ -48,7 +48,7 @@
     border-radius: 8px;
     outline: none;
 
-    background-image: url('/search.svg'); /* Ścieżka do obrazka */
+    background-image: url('/search.svg');
     background-repeat: no-repeat;
     background-position: right 5px center; 
     background-size: 30px;
@@ -78,7 +78,7 @@
     padding: 0px 5px;
 
     appearance: none;
-    background-image: url('/chevron-down.svg'); /* Ścieżka do obrazka */
+    background-image: url('/chevron-down.svg');
     background-repeat: no-repeat;
     background-position: right 6px center; 
     background-size: 20px;

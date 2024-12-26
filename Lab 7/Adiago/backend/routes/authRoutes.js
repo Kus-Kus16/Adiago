@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const { verifyToken } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 router.post('/register', async (req, res) => {
@@ -65,6 +66,10 @@ router.post('/refresh-token', async (req, res) => {
   
         res.json({ accessToken: newAccessToken });
     });
+});
+
+router.get('/protected', verifyToken, async (req, res) => {
+    return res.status(200).json({ user: req.user })
 });
 
 module.exports = router;

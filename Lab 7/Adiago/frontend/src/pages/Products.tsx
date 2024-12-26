@@ -3,8 +3,10 @@ import { Product } from "../components/DetailedProduct";
 import { SimpleProduct } from "../components/SimpleProduct";
 import './Products.css'
 import { useNavigate } from "react-router-dom";
+import { ThreeDots } from 'react-loader-spinner';
 
 export function Products() {
+    const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState<Product[]>([]);
     const [viewedProducts, setViewedProducts] = useState<Product[]>([]);
     const [categories, setCategories] = useState(new Array<string>);
@@ -37,6 +39,7 @@ export function Products() {
                 setCategories(Array.from(uniqueCategories))
                 setSelectedCategories(new Array(uniqueCategories.size).fill(true))
 
+                setLoading(false);
             } catch (error) {
                 console.error(error);
             }
@@ -151,6 +154,14 @@ export function Products() {
         }
     }
 
+    if (loading) {
+        return (
+            <div className="loadingContainer">
+                <ThreeDots color="#003077" height={80} width={80} />
+            </div>
+        );
+    }
+
     return (
         <div className="productsContainer">
             <div className="filteringContainer">
@@ -221,8 +232,8 @@ export function Products() {
                     ) )
                     }
                 </div>
-
             </div>
+            
             <div className="listContainer">
             {viewedProducts.length > 0 ? ( viewedProducts.map( (product) => (
                 <SimpleProduct 

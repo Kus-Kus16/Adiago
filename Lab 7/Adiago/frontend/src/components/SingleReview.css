@@ -1,0 +1,40 @@
+.reviewContainer {
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 30px;
+}
+
+.reviewTitleContainer {
+    display: flex;
+    align-items: center;
+}
+
+.reviewContainer p {
+    width: 100%;
+}
+
+.reviewContainer span {
+    font-size: 3rem;
+    margin-left: 20px;
+}
+
+.reviewContainer button {
+    width: 50px;
+    height: 50px;
+    border: none;
+    background-color: transparent;
+
+    background-image: url('/dismiss.svg');
+    background-repeat: no-repeat;
+    background-position: right 10px center; 
+    background-size: 30px;
+    opacity: 0.2;
+}
+
+.reviewContainer button:focus {
+    outline: none;
+}

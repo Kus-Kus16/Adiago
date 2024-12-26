@@ -11,13 +11,47 @@
 
 .reviewsContainer {
     display: flex;
-    align-content: center;
-    justify-content: end;
-    flex-wrap: wrap;
+    flex-direction: column;
 
     width: 100%;
-    min-height: 200px;
     border: 2px solid black;
     border-radius: 8px;
-    transition: border-color 0.15s;
+}
+
+.addReviewContainer form {
+    display: flex;
+    height: 300px;
+    margin: 30px;
+    gap: 30px;
+}
+
+.addReviewContainer form textarea {
+    width: 50%;
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 10px;
+    resize: none;
+    font-size: 0.9rem;
+}
+
+.reviewButtonsContainer {
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#opinionButton {
+    font-size: 4rem;
+    padding: 0px;
+    width: 90px;
+    height: 90px;
+}
+
+.allReviewsContainer {
+    margin-bottom: 10px;
+}
+
+.empty {
+    padding: 30px;
 }

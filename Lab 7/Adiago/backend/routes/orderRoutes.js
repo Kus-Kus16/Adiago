@@ -2,6 +2,7 @@ const express = require('express');
 const Order = require('../models/Order');
 const OrderDetail = require('../models/OrderDetail');
 const { verifyToken } = require('../middleware/authMiddleware');
+const { now } = require('sequelize/lib/utils');
 const router = express.Router();
 
 router.post('/add', verifyToken, async (req, res) => {
@@ -20,6 +21,7 @@ router.post('/add', verifyToken, async (req, res) => {
         }
 
         cart.type = "ORDER";
+        cart.orderDate = now()
         await cart.save();
         
         res.status(200).json({ message: 'Order placed succesfully' });

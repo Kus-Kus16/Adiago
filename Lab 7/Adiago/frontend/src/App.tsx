@@ -4,6 +4,10 @@ import { Layout } from "./pages/Layout";
 import { Products } from "./pages/Products";
 import { SingleProduct } from "./pages/SingleProduct";
 import { Login } from "./pages/Login";
+import { ProtectedRoute } from "./api/ProtectedRoute";
+import { Cart } from "./pages/Cart";
+import { NoPage } from "./pages/NoPage";
+import { Orders } from "./pages/Orders";
 
 function App() {
     return (
@@ -13,10 +17,10 @@ function App() {
                     <Route path="" element={<Home/>} />
                     <Route path="products" element={<Products/>} />
                     <Route path="product/:id" element={<SingleProduct/>} />
-                    {/* <Route path="cart" element={<Cart/>} />
-                    <Route path="orders" element={<Orders/>} /> */}
+                    <Route path="cart" element={<ProtectedRoute><Cart/></ProtectedRoute>} />
+                    <Route path="orders" element={<ProtectedRoute><Orders/></ProtectedRoute>} />
                     <Route path="login" element={<Login/>} />
-                    {/* <Route path="*" element={<NoPage/>} /> */}
+                    <Route path="*" element={<NoPage/>} />
                 </Route>
             </Routes>
         </BrowserRouter>      

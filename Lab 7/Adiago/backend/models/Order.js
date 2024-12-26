@@ -20,6 +20,10 @@ const Order = sequelize.define('Order', {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: "CART",
+    },
+    orderDate: {
+        type: DataTypes.DATE,
+        allowNull: true,
     }
 }, {
     timestamps: false, 

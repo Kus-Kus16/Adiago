@@ -13,7 +13,7 @@ router.post('/add/:productId', verifyToken, async (req, res) => {
         let oldReview = await Review.findOne({ where: { userId, productId } });
 
         if (oldReview) {
-            return res.status(404).json({ message: 'Review already exists' });
+            return res.status(409).json({ message: 'Review already exists' });
         }
 
         const review = await Review.create({ userId, productId, positive, content })
@@ -36,10 +36,6 @@ router.get('/:productId', async (req, res) => {
                 attributes: ['username', 'email']
             } 
         });
-
-        if (reviews.length === 0) {
-            return res.status(404).json({ message: 'Reviews not found' });
-        }
 
         res.status(200).json(reviews);
     } catch (error) {

@@ -1,6 +1,7 @@
 import { RatingStars } from "./RatingStars"
 import './DetailedProduct.css'
 import { useState } from "react"
+import axiosInstance from "../api/axiosConfig"
 
 interface Product {
     id: number
@@ -23,12 +24,28 @@ export function DetailedProduct({product}: {product: Product}) {
     const increaseAmount = () => {
         setAmount((prevAmount) => (prevAmount + 1))
     }
+
     const decreaseAmount = () => {
         setAmount((prevAmount) => (Math.max(prevAmount - 1, 0)))
     }
-    const sendToCart = () => {
-        setAmount(0);
-        // TODO
+
+    const sendToCart = async () => {
+        const reqBody = {
+            "productId": product.id,
+            "productName": product.title,
+            "productPrice": product.price,
+            "quantity": amount
+        };
+    
+        try {
+            await axiosInstance.post('/cart/add', reqBody);
+            alert("Product added to cart.");
+            setAmount(0);
+
+        } catch (error: any) {
+            console.log(error);
+        }
+
     }
 
     return (
