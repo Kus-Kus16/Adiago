@@ -3,6 +3,7 @@ const Order = require('../models/Order');
 const OrderDetail = require('../models/OrderDetail');
 const { verifyToken } = require('../middleware/authMiddleware');
 const { now } = require('sequelize/lib/utils');
+const Product = require('../models/Product');
 const router = express.Router();
 
 router.post('/add', verifyToken, async (req, res) => {
@@ -38,8 +39,11 @@ router.get('/', verifyToken, async (req, res) => {
         let orders = await Order.findAll({ 
             where: {userId, type: "ORDER"},
             include: {
-                model: OrderDetail
-            } 
+                model: OrderDetail,
+                include: {
+                    model: Product
+                }
+            }
         });
 
         if (orders.length === 0) {

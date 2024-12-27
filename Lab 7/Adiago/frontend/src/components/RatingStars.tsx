@@ -1,16 +1,13 @@
-import {Rating} from "./DetailedProduct"
 import './RatingStars.css'
 
-export function RatingStars({rating}: {rating: Rating}) {
-    const rate = rating.rate;
-
-    const fullStars = Math.floor(rate);
+export function RatingStars({rating, count}: {rating: number, count: number}) {
+    const fullStars = Math.floor(rating);
     const stars = "★".repeat(fullStars) + "☆".repeat(5-fullStars);
 
     return (
         <div className="starsContainer">
             <span>{stars}</span>
-            <p>Rating count: {rating.count}</p>
+            <p>Rating count: {count}</p>
         </div>
     );
 

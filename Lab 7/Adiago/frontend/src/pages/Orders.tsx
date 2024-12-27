@@ -11,9 +11,8 @@ export function Orders() {
     useEffect( () => {
         const fetchOrders = async () => {
             try {
-                const response = await axiosInstance.get(`/orders/`);
+                const response = await axiosInstance.get(`/orders`);
                 setOrders(response.data);
-                setLoading(false);
                 
             } catch (error) {
                 console.error(error);
@@ -21,6 +20,7 @@ export function Orders() {
         }
 
         fetchOrders();
+        setLoading(false);
     }, [] )
 
     if (loading) {

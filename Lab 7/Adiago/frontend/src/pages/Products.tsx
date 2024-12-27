@@ -4,6 +4,7 @@ import { SimpleProduct } from "../components/SimpleProduct";
 import './Products.css'
 import { useNavigate } from "react-router-dom";
 import { ThreeDots } from 'react-loader-spinner';
+import axiosInstance from "../api/axiosConfig";
 
 export function Products() {
     const [loading, setLoading] = useState(true);
@@ -26,8 +27,9 @@ export function Products() {
     useEffect( () => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch("https://fakestoreapi.com/products");
-                const data: Product[] = await response.json(); 
+                const response = await axiosInstance.get(`/products`);
+                const data: Product[] = response.data;
+
                 setProducts(data);
                 setViewedProducts(data);
                 
@@ -43,6 +45,7 @@ export function Products() {
             } catch (error) {
                 console.error(error);
             }
+            
         };
 
         fetchProducts();
@@ -62,7 +65,7 @@ export function Products() {
         for (let stars = 0; stars < 5; stars++) {
             if (!selectedStars[stars]) {
                 productsList = productsList.filter(product =>
-                    !(product.rating.rate >= stars && product.rating.rate <= stars + 1)
+                    !(product.rating >= stars && product.rating <= stars + 1)
                 );
             } 
         }
@@ -113,7 +116,7 @@ export function Products() {
                 productsList.sort((prod1, prod2) => prod2.price - prod1.price);
                 break;
             case "ratingASC":
-                productsList.sort((prod1, prod2) => prod1.rating.rate - prod2.rating.rate);
+                productsList.sort((prod1, prod2) => prod1.rating - prod2.rating);
                 break;
             default:
                 break;

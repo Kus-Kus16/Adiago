@@ -1,18 +1,25 @@
 const express = require('express');
 const Order = require('../models/Order');
+const Product = require('../models/Product');
 const OrderDetail = require('../models/OrderDetail');
 const { verifyToken } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 router.post('/add', verifyToken, async (req, res) => {
-    const {productId, productName, productPrice, quantity} = req.body;
+    const {productId, quantity} = req.body;
     const userId = req.user.id;
 
-    if (!productId || !quantity || isNaN(quantity) || quantity <= 0 || !productName || !productPrice) {
+    if (!productId || !quantity || isNaN(quantity) || quantity <= 0 ) {
         return res.status(400).json({ message: 'Values missing' });
     }
 
     try {
+        const product = await Product.findOne({ where: {id: productId} })
+
+        if (!product) {
+            return res.status(404).json({ message: 'Product does not exist' });
+        }
+
         let cart = await Order.findOne({ where: {userId, type: "CART"} });
 
         if (!cart) {
@@ -25,7 +32,7 @@ router.post('/add', verifyToken, async (req, res) => {
             item.quantity += quantity;
             await item.save();
         } else {
-            await OrderDetail.create({ orderId: cart.id, productId, productName, productPrice, quantity })
+            await OrderDetail.create({ orderId: cart.id, productId, quantity })
         }
 
         res.status(200).json({ message: 'Product added to cart' });
@@ -42,7 +49,10 @@ router.get('/', verifyToken, async (req, res) => {
         let cart = await Order.findOne({ 
             where: {userId, type: "CART"},
             include: {
-                model: OrderDetail
+                model: OrderDetail,
+                include: {
+                    model: Product
+                }
             } 
         });
 
@@ -65,6 +75,12 @@ router.patch('/patch', verifyToken, async (req, res) => {
     }
 
     try {
+        const product = await Product.findOne({ where: {id: productId} })
+
+        if (!product) {
+            return res.status(404).json({ message: 'Product does not exist' });
+        }
+
         const cart = await Order.findOne({ where: {userId, type: "CART"} });
 
         if (!cart) {
@@ -79,7 +95,7 @@ router.patch('/patch', verifyToken, async (req, res) => {
 
         if (quantity === 0) {
             await item.destroy();
-            return res.status(200).json({ message: 'Item removed from cart' });
+            return res.status(200).json({ message: 'Item deleted from cart' });
         }
 
         item.quantity = quantity;

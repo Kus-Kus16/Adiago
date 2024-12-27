@@ -10,12 +10,8 @@ interface Product {
     description: string
     category: string
     image: string
-    rating: Rating
-}
-
-interface Rating {
-    rate: number
-    count: number
+    rating: number
+    ratingCount: number
 }
 
 export function DetailedProduct({product}: {product: Product}) {
@@ -55,7 +51,7 @@ export function DetailedProduct({product}: {product: Product}) {
                 <div className="upperTexts">
                     <h2 className="title">{product.title}</h2>
                     <h4 className="category">{product.category[0].toUpperCase() + product.category.substring(1)}</h4>
-                    <RatingStars rating={product.rating} />
+                    <RatingStars rating={product.rating} count={product.ratingCount}/>
                 </div>
                 <div className="lowerTexts">
                     <p className="price">${product.price}</p>
@@ -72,4 +68,3 @@ export function DetailedProduct({product}: {product: Product}) {
     );
 }
 export type {Product};
-export type {Rating};

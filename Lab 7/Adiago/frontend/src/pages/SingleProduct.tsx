@@ -12,7 +12,7 @@ export function SingleProduct() {
     const [loading, setLoading] = useState(true);
     const [product, setProduct] = useState<Product>();
     const [reviews, setReviews] = useState<Review[]>([]);
-    const [reviewsUpdate, setReviewsUpdate] = useState(true);
+    const [refresh, setRefresh] = useState(true);
 
     const [opinionType, setOpinionType] = useState(true);
     const [opinion, setOpinion] = useState("");
@@ -20,11 +20,10 @@ export function SingleProduct() {
     useEffect( () => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch("https://fakestoreapi.com/products");
-                const data: Product[] = await response.json(); 
+                const response = await axiosInstance.get(`/products/${id}`);
+                const data: Product = response.data;
 
-                setProduct( data.find( (product: Product) => product.id === Number(id) ) );
-                
+                setProduct(data);
                 setLoading(false);
             } catch (error) {
                 console.error(error);
@@ -45,7 +44,7 @@ export function SingleProduct() {
         }
 
         fetchReviews();
-    }, [reviewsUpdate] )
+    }, [refresh] )
 
     const handleAddReview = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -74,7 +73,7 @@ export function SingleProduct() {
             }
         }
 
-        setReviewsUpdate(!reviewsUpdate);
+        setRefresh(!refresh);
     }
 
     const handleRemoveReview = async () => {
@@ -86,7 +85,7 @@ export function SingleProduct() {
             console.log(error);
         }
 
-        setReviewsUpdate(!reviewsUpdate);
+        setRefresh(!refresh);
     }
 
     if (loading) {

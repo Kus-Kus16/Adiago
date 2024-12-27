@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import './SimpleOrder.css'
 import { Link } from "react-router-dom"
+import { Product } from "./DetailedProduct"
 
 interface Order {
     id: number
@@ -10,9 +11,7 @@ interface Order {
 
 interface OrderDetail {
     id: number
-    productId: number
-    productName: string
-    productPrice: number
+    Product: Product
     quantity: number
 }
 
@@ -22,7 +21,7 @@ export function SimpleOrder({order}: {order: Order}) {
     useEffect( () => {
         let total = 0;
         order.OrderDetails.forEach( (detail) => {
-            total += detail.productPrice * detail.quantity
+            total += detail.Product.price * detail.quantity
         } )
 
         setValue(total)
@@ -36,12 +35,12 @@ export function SimpleOrder({order}: {order: Order}) {
             </div>
             {order.OrderDetails.map( (detail) => (
                 <div className="orderDetailContainer" key={detail.id}>
-                    <Link to={`/product/${detail.productId}`}>
-                        <h3>{detail.productName}</h3>
+                    <Link to={`/product/${detail.Product.id}`}>
+                        <h3>{detail.Product.title}</h3>
                     </Link>
                     <div className="innerValues">
                         <p>Quantity: {detail.quantity}</p>
-                        <p>Price: ${detail.productPrice}</p>
+                        <p>Price: ${detail.Product.price}</p>
                     </div>
                 </div>
             ) )}
