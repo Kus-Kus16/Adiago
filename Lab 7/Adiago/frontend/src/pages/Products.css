@@ -14,12 +14,14 @@
     margin: 30px;
     padding: 20px;
     gap: 10px;
+    background-color: white;
 }
 
 .filteringContainer span {
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 5px;
+    color: #003077;
 }
 
 .searchInput {

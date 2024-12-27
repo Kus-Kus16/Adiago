@@ -16,6 +16,7 @@
     width: 100%;
     border: 2px solid black;
     border-radius: 8px;
+    background-color: white;
 }
 
 .addReviewContainer form {

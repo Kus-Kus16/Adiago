@@ -8,6 +8,7 @@
     min-height: 200px;
     border: 2px solid black;
     border-radius: 8px;
+    background-color: white;
 }
 
 .detailedProductContainer .productImage {
@@ -72,9 +73,20 @@
     align-items: center;
 }
 
-.detailedProductContainer .buttonsContainer span {
-    width: 25px;
+.detailedProductContainer .buttonsContainer input {
+    font-size: 1.6rem;
+    width: 50px;
     text-align: center;
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    outline: none;
+}
+
+.detailedProductContainer .buttonsContainer input:focus {
+    border-color: black;
+    outline: none; 
 }
 
 .detailedProductContainer .starsContainer {
@@ -87,4 +99,15 @@
 
 .detailedProductContainer .starsContainer p {
     font-size: 0.8rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    appearance: none;
+    -moz-appearance: textfield;
 }

@@ -139,7 +139,6 @@ export function Products() {
             index === position ? !item : item
         );
         setSelectedCategories(updatedSelected);
-        console.log(`${position} ${updatedSelected[position]}`)
     }
 
     const submitStars = (position: number) => {

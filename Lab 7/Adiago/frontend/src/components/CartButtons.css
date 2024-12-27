@@ -1,0 +1,36 @@
+.cartButtonsContainer {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    gap: 20px;
+}
+
+.cartButtonsContainer input {
+    text-align: center;
+    font-size: 2rem;
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    outline: none;
+    width: 100%;
+}
+
+.cartButtonsContainer input:focus {
+    border-color: black;
+    outline: none;
+}
+
+.cartButtonsContainer .upperButtonsContainer {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.cartButtonsContainer .lowerButtonsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

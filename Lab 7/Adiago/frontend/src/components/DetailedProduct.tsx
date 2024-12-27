@@ -58,7 +58,7 @@ export function DetailedProduct({product}: {product: Product}) {
                     <p className="description">{product.description}</p>
                     <div className="buttonsContainer">
                         <button onClick={increaseAmount}>+</button>
-                        <span>{amount}</span>
+                        <input type="number" value={amount} onChange={(event) => setAmount(Number(event.target.value))}/>
                         <button onClick={decreaseAmount} disabled={amount === 0}>-</button>
                         <button onClick={sendToCart} disabled={amount === 0}>Add to Cart</button>
                     </div>

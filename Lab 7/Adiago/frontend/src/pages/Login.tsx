@@ -1,13 +1,17 @@
 import { useState } from "react";
 import axiosInstance from "../api/axiosConfig";
+import './Login.css';
 
 export function Login() {
-    const [loginEmail, setLoginEmail] = useState("test@example.com");
-    const [loginPassword, setLoginPassword] = useState("securepassword");
+    const [loginEmail, setLoginEmail] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
 
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerUsername, setRegisterUsername] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
+
+    const [error, setError] = useState("")
+    const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('accessToken'));
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -20,8 +24,10 @@ export function Login() {
             localStorage.setItem('refreshToken', refreshToken);
 
             window.location.href = '/';
-        } catch (error) {
-            alert("Incorrect login or password!");
+        } catch (error: any) {
+            if (error.response) {
+                setError(error.response.data.message);
+            }
         }
     };
 
@@ -31,15 +37,24 @@ export function Login() {
         try {
             await axiosInstance.post('/auth/register', { email: registerEmail, username: registerUsername, password: registerPassword});
 
-            alert('Registration successful!');
+            setError("Registration successful!");
 
             setRegisterEmail("");
             setRegisterUsername("");
             setRegisterPassword("");
-        } catch (error) {
-            alert("Error registering user!");
+        } catch (error: any) {
+            if (error.response) {
+                setError(error.response.data.message);
+            }
         }
     };
+
+    const handleLogout = () => {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        setError("Logout successful!")
+        setLoggedIn(false);
+    }
 
     return (
         <div className="authContainer">
@@ -52,8 +67,9 @@ export function Login() {
                         onChange={(event) => setLoginPassword(event.target.value)} required/>
                     <button type="submit">Login</button>
                 </form>
+                <button onClick={handleLogout} disabled={!loggedIn}>Logout</button>
             </div>
-            <div className="registerContainer">
+            <div className="loginContainer">
                 <h2>Register</h2>
                 <form onSubmit={handleRegister}>
                     <input type="email" placeholder="Email" value={registerEmail}
@@ -65,10 +81,7 @@ export function Login() {
                     <button type="submit">Register</button>
                 </form>
             </div>
-            <p>
-                "email": test@example.com
-                "password": securepassword
-            </p>
+            <p>{error}</p>
         </div>
     );
 }

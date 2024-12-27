@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axiosInstance from "../api/axiosConfig";
+import './CartButtons.css'
 
 export function CartButtons({productId, productQuantity, productRefresh}: {productId: number, productQuantity: number, productRefresh: () => void}) {
     const [quantity, setQuantity] = useState(productQuantity);
@@ -20,7 +21,8 @@ export function CartButtons({productId, productQuantity, productRefresh}: {produ
             };
 
             await axiosInstance.patch(`/cart/patch`, reqBody);
-            alert("Change saved!")
+            alert("Change saved!");
+            productRefresh();
         } catch (error) {
             console.error(error);
         }
@@ -29,7 +31,7 @@ export function CartButtons({productId, productQuantity, productRefresh}: {produ
     const handleDelete = async () => {
         try {
             await axiosInstance.delete(`/cart/remove/${productId}`);
-            alert("Product removed from cart.")
+            alert("Product removed from cart.");
             productRefresh();
         } catch (error) {
             console.error(error);
@@ -38,11 +40,18 @@ export function CartButtons({productId, productQuantity, productRefresh}: {produ
 
     return (
         <div className="cartButtonsContainer">
-            <span>{quantity}</span>
-            <button onClick={increaseQuantity}>+</button>
-            <button onClick={decreaseQuantity} disabled={quantity === 0}>-</button>
-            <button onClick={handleSave}>Save</button>
-            <button onClick={handleDelete}>Delete</button>
+            <div className="upperButtonsContainer">
+                <input type="number" value={quantity} 
+                    onChange={(event) => setQuantity(Number(event.target.value))} 
+                    onKeyDown={(event) => { if (event.key === 'Enter') { handleSave() } }}
+                />
+                <button onClick={increaseQuantity}>+</button>
+                <button onClick={decreaseQuantity} disabled={quantity === 0}>-</button>
+            </div>
+            <div className="lowerButtonsContainer">
+                <button onClick={handleSave}>Save</button>
+                <button onClick={handleDelete}>Delete</button>
+            </div>
         </div>
     );
 }

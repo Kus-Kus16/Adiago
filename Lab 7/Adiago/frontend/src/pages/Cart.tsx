@@ -6,10 +6,13 @@ import { SimpleProduct } from "../components/SimpleProduct";
 import { useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 import { CartButtons } from "../components/CartButtons";
+import './Cart.css';
 
 export function Cart() {
     const [cart, setCart] = useState<Order>()
     const [details, setDetails] = useState<OrderDetail []>([]);
+    const [value, setValue] = useState(0);
+
     const [loading, setLoading] = useState(true);
     const [refresh, setRefresh] = useState(true);
 
@@ -21,8 +24,14 @@ export function Cart() {
                 const response = await axiosInstance.get(`/cart`);
                 const data: Order = response.data;
 
-                setCart(data) 
-                setDetails(data.OrderDetails)
+                let newValue = 0;
+                data.OrderDetails.forEach( (detail) => {
+                    newValue += detail.quantity * detail.Product.price;
+                } );
+
+                setCart(data); 
+                setDetails(data.OrderDetails);
+                setValue(newValue);
             } catch (error) {
                 console.error(error);
             }
@@ -34,6 +43,16 @@ export function Cart() {
 
     const navigateProduct = (productId: number) => {
         navigate(`/product/${productId}`)
+    };
+
+    const handleOrder = async () => {
+        try {
+            await axiosInstance.post(`/orders/add`);
+            alert("Order placed successfully!");
+            navigate(`/orders`)
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     if (loading) {
@@ -63,6 +82,11 @@ export function Cart() {
                     />
                 </div>   
             ) )}
+            <div className="summaryContainer">
+                <span id="bar"></span>
+                <h2>Total: ${value}</h2>
+                <button onClick={handleOrder}>Place Order</button>
+            </div>
         </div>
     );
 }

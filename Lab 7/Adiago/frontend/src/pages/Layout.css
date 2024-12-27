@@ -34,7 +34,7 @@
     margin: 10px 20px;
     text-decoration: none;
     color: #f1faff;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
 }
 
 .menuLinks a:hover {
@@ -45,6 +45,7 @@
 .mainContainer {
     margin-top: 80px;
     min-height: calc(100vh - 80px);
+    background-color: #F0F8FF;
 }
 
 .loadingContainer {
@@ -54,4 +55,5 @@
     align-items: center;
     gap: 10px;
     height: calc(100vh - 80px);
+    font-size: 1.5rem;
 }

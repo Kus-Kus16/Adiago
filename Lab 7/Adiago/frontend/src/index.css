@@ -64,10 +64,6 @@ button {
 button:hover, button:focus {
   border-color: #04a7ff;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
 
 main {
   display: flex;
