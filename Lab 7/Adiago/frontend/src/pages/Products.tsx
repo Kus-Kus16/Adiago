@@ -154,13 +154,7 @@ export function Products() {
         }
     }
 
-    if (loading) {
-        return (
-            <div className="loadingContainer">
-                <ThreeDots color="#003077" height={80} width={80} />
-            </div>
-        );
-    }
+
 
     return (
         <div className="productsContainer">
@@ -242,7 +236,13 @@ export function Products() {
                     onClick={() => navigateProduct(product.id)}
                 />
             ))
-            ) : ("No products found")
+            ) : (
+                loading ?                         
+                (<div className="loadingContainer">
+                    <ThreeDots color="#003077" height={80} width={80} />
+                </div>) :
+                "Found no products mathing given criteria."
+            )
             }
             </div>
         </div>

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 interface Order {
     id: number
     OrderDetails: [OrderDetail]
+    orderDate: string
 }
 
 interface OrderDetail {
@@ -29,7 +30,10 @@ export function SimpleOrder({order}: {order: Order}) {
 
     return (
         <div className="orderContainer">
-            <h2>Order no. {order.id}</h2>
+            <div className="outerValues">
+                <h2>Order no. {order.id}</h2>
+                <p>Order date: {order.orderDate.substring(0,10)}</p>
+            </div>
             {order.OrderDetails.map( (detail) => (
                 <div className="orderDetailContainer" key={detail.id}>
                     <Link to={`/product/${detail.productId}`}>
@@ -37,11 +41,11 @@ export function SimpleOrder({order}: {order: Order}) {
                     </Link>
                     <div className="innerValues">
                         <p>Quantity: {detail.quantity}</p>
-                        <p>Price: {detail.productPrice}</p>
+                        <p>Price: ${detail.productPrice}</p>
                     </div>
                 </div>
             ) )}
-            <span>Total Value: {value}</span>
+            <span>Total Value: ${value}</span>
         </div>
     );
 }

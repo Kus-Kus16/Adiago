@@ -2,16 +2,18 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../api/axiosConfig";
 import './Orders.css'
 import { Order, SimpleOrder } from "../components/SimpleOrder";
+import { ThreeDots } from "react-loader-spinner";
 
 export function Orders() {
-    const [orders, setOrders] = useState([])
+    const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect( () => {
         const fetchOrders = async () => {
             try {
                 const response = await axiosInstance.get(`/orders/`);
-                setOrders(response.data) 
-                console.log(response.data);
+                setOrders(response.data);
+                setLoading(false);
                 
             } catch (error) {
                 console.error(error);
@@ -20,6 +22,14 @@ export function Orders() {
 
         fetchOrders();
     }, [] )
+
+    if (loading) {
+        return (
+            <div className="loadingContainer">
+                <ThreeDots color="#003077" height={80} width={80} />
+            </div>
+        );
+    }
 
     return (
         <div className="ordersContainer">

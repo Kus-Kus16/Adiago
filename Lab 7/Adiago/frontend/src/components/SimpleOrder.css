@@ -12,19 +12,25 @@
 .orderDetailContainer {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     align-items: center;
     justify-content: space-between;
 }
 
+.orderContainer .outerValues {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
 .orderDetailContainer .innerValues{
+    width: 100%;
     display: flex;
     gap: 20px;
     align-items: center;
 }
 
 .orderContainer h2 {
-    margin-bottom: 15px;
     font-size: 1.9rem;
     text-align: left;
 }

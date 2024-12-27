@@ -6,6 +6,7 @@ import { SimpleProduct } from "../components/SimpleProduct";
 import { Product } from "../components/DetailedProduct";
 import { useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
+import { CartButtons } from "../components/CartButtons";
 
 export function Cart() {
     const [cart, setCart] = useState<Order>()
@@ -29,24 +30,43 @@ export function Cart() {
         }
 
         const fetchProducts = async (productIds: number[]) => {
-            const productMap : { [key: number]: Product } = {};
-
-            await Promise.all(
-                productIds.map(async (productId) => {
-                    const response = await fetch(`https://fakestoreapi.com/products/${productId}`);
-                    const data: Product = await response.json();
-                    productMap[productId] = data;
-                })
-            );
-
-            return productMap;
-        }
+            try {
+                const response = await fetch(`https://fakestoreapi.com/products`);
+                const data: Product[] = await response.json();
+        
+                const productMap = data
+                    .filter((product) => productIds.includes(product.id))
+                    .reduce((map, product) => {
+                        map[product.id] = product;
+                        return map;
+                    }, {} as { [key: number]: Product });
+        
+                return productMap;
+            } catch (error) {
+                console.error("Failed to fetch products:", error);
+                return {};
+            }
+        };
+        
 
         fetchCart();
     }, [] )
 
     const navigateProduct = (productId: number) => {
         navigate(`/product/${productId}`)
+    };
+
+    const removeProduct = (productId: number) => {
+        setCart((prevCart) => {
+            if (!prevCart) return undefined;
+
+            const updatedOrderDetails = prevCart.OrderDetails.filter(
+                (detail) => detail.productId !== productId
+            );
+
+            console.log({ ...prevCart, OrderDetails: updatedOrderDetails });
+            return { ...prevCart, OrderDetails: updatedOrderDetails } as Order;
+        });
     };
 
     if (loading) {
@@ -57,7 +77,7 @@ export function Cart() {
         );
     }
 
-    if (!cart) {
+    if (!cart || !cart.OrderDetails || cart.OrderDetails.length.toString() === '0') {
         return <div className="empty">Your cart is empty.</div>
     }
 
@@ -70,6 +90,11 @@ export function Cart() {
                         <SimpleProduct
                             product={product}
                             onClick={() => navigateProduct(detail.productId)}
+                        />
+                        <CartButtons
+                            productId={detail.productId}
+                            productQuantity={detail.quantity}
+                            productRefresh={() => removeProduct(detail.productId)}
                         />
                     </div>
                 );
