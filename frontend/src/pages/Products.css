@@ -86,6 +86,11 @@
     background-size: 20px;
 }
 
+.filteringContainer label {
+    width: 100%;
+    text-align: left;
+}
+
 .categoryInput, .starsInput, .priceInput {
     width: 100%;
     display: flex;
@@ -119,7 +124,7 @@
 .categoryInput input:checked, .starsInput input:checked {
     background-image: url("/checkmark.svg");
     background-size: 15px;
-    background-position: center;
+    background-position: right 1px center;
     background-repeat: no-repeat;
 }
 
@@ -135,8 +140,8 @@
 
 .priceInput input:checked {
     background-image: url("/dot.svg");
-    background-size: 12px;
-    background-position: center;
+    background-size: 11px;
+    background-position: right 3px center;
     background-repeat: no-repeat;
 }
 

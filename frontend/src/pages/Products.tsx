@@ -51,9 +51,7 @@ export function Products() {
                             product.category != category
                         );
                     }
-                } )
-                console.log(arrayCategories);
-                console.log(newSelectedCategories);
+                } );
 
                 setCategories(arrayCategories);
                 setSelectedCategories(newSelectedCategories);
