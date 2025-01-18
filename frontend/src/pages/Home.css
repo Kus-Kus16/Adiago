@@ -15,21 +15,59 @@
     text-shadow: 2px 2px 4px #00000050;
 }
 
+.categoriesContainer h2 {
+    color: #003077;
+    font-size: 2rem;
+    margin-bottom: 25px;
+}
+
 .homeButtonsContainer {
+    width: 40%;
     display: flex;
     justify-content: center;
     gap: 40px;
 }
 
-.homeButtonsContainer button {
-    border-color: #003077;
-    width: 150px;
+.categoriesContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.homeButtonsContainer svg{
+    width: 50px;
     height: 50px;
+    fill: black;
     transition: all 0.3s ease;
 }
 
-.homeButtonsContainer button:hover {
+.homeButtonsContainer button {
+    border-color: #003077;
+    border-radius: 400px;
+    width: 120px;
+    height: 120px;
+    transition: all 0.3s ease;
+}
+
+.homeButtonsContainer button:hover{
     transform: scale(1.1);
     color: white;
     background-color: #003077;
+}
+
+.homeButtonsContainer button:hover svg{
+    fill: white;
+}
+
+.labelsContainer {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    font-size: 1.4rem;
+}
+
+.labelsContainer p {
+    width: 120px;
 }

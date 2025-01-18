@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Product } from "../components/DetailedProduct";
 import { SimpleProduct } from "../components/SimpleProduct";
 import './Products.css'
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ThreeDots } from 'react-loader-spinner';
 import axiosInstance from "../api/axiosConfig";
 
@@ -18,6 +18,9 @@ export function Products() {
     const [selectedStars, setSelectedStars] = useState(Array<boolean>(5).fill(true));
     const [selectedPrice, setSelectedPrice] = useState(-1);
 
+    const location = useLocation();
+    const requestedCategory = new URLSearchParams(location.search).get("cat") || "";    
+
     const navigate = useNavigate();
 
     const navigateProduct = (productId: number) => {
@@ -28,18 +31,33 @@ export function Products() {
         const fetchProducts = async () => {
             try {
                 const response = await axiosInstance.get(`/products`);
-                const data: Product[] = response.data;
+                let arrayProducts: Product[] = response.data;
 
-                setProducts(data);
-                setViewedProducts(data);
+                setProducts(arrayProducts);
                 
                 const uniqueCategories = new Set<string>()
-                data.forEach( (product) => {
+                arrayProducts.forEach( (product) => {
                     uniqueCategories.add(product.category)
                 } )
 
-                setCategories(Array.from(uniqueCategories))
-                setSelectedCategories(new Array(uniqueCategories.size).fill(true))
+                const arrayCategories = Array.from(uniqueCategories);
+                const newSelectedCategories = arrayCategories.map( category =>  
+                    category.toLowerCase().includes(requestedCategory.toLowerCase()) ? true : false
+                );
+
+                arrayCategories.forEach( (category, index) => {
+                    if (!newSelectedCategories[index]) {
+                        arrayProducts = arrayProducts.filter(product =>
+                            product.category != category
+                        );
+                    }
+                } )
+                console.log(arrayCategories);
+                console.log(newSelectedCategories);
+
+                setCategories(arrayCategories);
+                setSelectedCategories(newSelectedCategories);
+                setViewedProducts(arrayProducts);
 
                 setLoading(false);
             } catch (error) {
@@ -115,8 +133,8 @@ export function Products() {
             case "priceDESC":
                 productsList.sort((prod1, prod2) => prod2.price - prod1.price);
                 break;
-            case "ratingASC":
-                productsList.sort((prod1, prod2) => prod1.rating - prod2.rating);
+            case "ratingDESC":
+                productsList.sort((prod1, prod2) => prod2.rating - prod1.rating);
                 break;
             default:
                 break;
@@ -156,8 +174,6 @@ export function Products() {
         }
     }
 
-
-
     return (
         <div className="productsContainer">
             <div className="filteringContainer">
@@ -175,7 +191,7 @@ export function Products() {
                         <option value="nameDESC">Name: descending</option>
                         <option value="priceASC">Price: ascending</option>
                         <option value="priceDESC">Price: descending</option>
-                        <option value="ratingASC">Rating: ascending</option>
+                        <option value="ratingDESC">Rating: descending</option>
                     </select>
                 </div>
                 <div className="categoryInput">
